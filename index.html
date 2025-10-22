@@ -1,0 +1,200 @@
+ <!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun! 🎉</title>
+    
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-brand">🎉 Ulang Tahun</a>
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-link active" onclick="navigateToPage('home')">🏠 Step 1</a></li>
+                <li><a href="#" class="nav-link locked" onclick="navigateToPage('game')">🎮 Step 2 <span class="lock-icon">🔒</span></a></li>
+                <li><a href="#" class="nav-link locked" onclick="navigateToPage('memories')">📚 Step 3 <span class="lock-icon">🔒</span></a></li>
+                <li><a href="#" class="nav-link locked" onclick="navigateToPage('form')">✏️ Step 4 <span class="lock-icon">🔒</span></a></li>
+                <li><a href="#" class="nav-link locked" onclick="navigateToPage('messages')">💌 Step 5 <span class="lock-icon">🔒</span></a></li>
+            </ul>
+            <div class="progress-indicator">
+                <span id="progressText">Step 1 of 5</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="page-container">
+        <!-- Home Page -->
+        <div id="home" class="page active">
+            <div class="home-container">
+                <h1 class="birthday-title">🎉 Selamat Ulang Tahun! 🎉</h1>
+                <h2 class="celebrant-name">Untuk Orang Terspesial 💝</h2>
+                
+                <p class="home-description">
+                    Ikuti petualangan spesial ini untuk menemukan surprise ulang tahunmu! 
+                    Selesaikan setiap tahap untuk membuka kejutan berikutnya.
+                </p>
+                
+                <div class="stage-info">
+                    <h3>🎯 Perjalanan Ulang Tahun:</h3>
+                    <ol class="journey-steps">
+                        <li class="step-active">🏠 Beranda (Sekarang)</li>
+                        <li>🎮 Game Balon Pop (Selanjutnya)</li>
+                        <li>📚 Buku Kenangan</li>
+                        <li>✏️ Tulis Pesan Sendiri</li>
+                        <li>💌 Lihat Semua Pesan</li>
+                    </ol>
+                </div>
+                
+                <button class="btn-continue" id="startAdventureBtn" onclick="startJourney()" style="cursor: pointer; z-index: 100; position: relative; pointer-events: auto;">
+                    🚀 Mulai Petualangan
+                </button>
+            </div>
+            
+            <!-- Floating Balloons -->
+            <div class="floating-balloon" style="left: 10%; top: 20%; font-size: 3rem; animation-delay: 0s;">🎈</div>
+            <div class="floating-balloon" style="right: 15%; top: 30%; font-size: 2.5rem; animation-delay: 2s;">🎈</div>
+            <div class="floating-balloon" style="left: 70%; top: 40%; font-size: 3.5rem; animation-delay: 4s;">🎈</div>
+            <div class="floating-balloon" style="right: 25%; top: 60%; font-size: 2.8rem; animation-delay: 1s;">🎈</div>
+        </div>
+
+        <!-- Game Page -->
+        <div id="game" class="page">
+            <div class="game-container">
+                <div class="game-header">
+                    <h2>🎈 Pop the Balloons! 🎈</h2>
+                    <p>Pecahkan balon sebanyak mungkin dalam 30 detik!</p>
+                </div>
+                
+                <div class="game-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Skor</div>
+                        <div class="stat-value" id="score">0</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Waktu</div>
+                        <div class="stat-value" id="timer">30</div>
+                    </div>
+                </div>
+                
+                <div class="game-area" id="gameArea"></div>
+                
+                <div class="game-controls">
+                    <button class="game-btn btn-start" id="startBtn" onclick="startGame()">Mulai Game</button>
+                    <button class="game-btn btn-reset" id="resetBtn" onclick="resetGame()">Reset</button>
+                </div>
+                
+                <div id="gameResult" class="game-result" style="display: none;">
+                    <div id="winMessage" class="result-message win-message" style="display: none;">
+                        <h3>🎉 Selamat! Kamu berhasil! 🎉</h3>
+                        <p>Kamu telah memecahkan <span id="finalScore"></span> balon!</p>
+                        <button class="btn-continue" onclick="completeGame()">Lanjut ke Kenangan</button>
+                    </div>
+                    <div id="loseMessage" class="result-message lose-message" style="display: none;">
+                        <h3>😅 Hampir! Coba Lagi! 💪</h3>
+                        <p>Kamu perlu memecahkan minimal 10 balon untuk melanjutkan.</p>
+                        <button class="game-btn btn-start" onclick="startGame()">Coba Lagi!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Memory Book Page -->
+        <div id="memories" class="page">
+            <div class="memory-container">
+                <div class="memory-header">
+                    <h2>📚 Buku Kenangan Indah 📚</h2>
+                    <p>Kumpulan momen-momen berharga yang telah kita lalui bersama</p>
+                </div>
+                
+                <div class="memory-grid" id="memoryGrid">
+                    <!-- Memory cards will be generated by JavaScript -->
+                </div>
+                
+                <div class="continue-section">
+                    <button class="btn-continue" onclick="completeMemories()">
+                        Lanjut Tulis Pesan ✏️
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Message Input Form Page -->
+        <div id="form" class="page">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2>✏️ Tulis Pesan Ulang Tahun ✏️</h2>
+                    <p>Tulis pesan spesial untuk orang yang berulang tahun!</p>
+                </div>
+                
+                <div class="message-form">
+                    <div class="form-group">
+                        <label for="senderName" class="form-label">Nama Pengirim:</label>
+                        <input type="text" id="senderName" class="form-control" placeholder="Masukkan nama kamu" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="messageText" class="form-label">Pesan Ulang Tahun:</label>
+                        <textarea id="messageText" class="form-control" rows="4" placeholder="Tulis pesan ulang tahun yang indah..." maxlength="200" required></textarea>
+                        <div class="char-counter">
+                            <span id="charCount">200</span> karakter tersisa
+                        </div>
+                    </div>
+                    
+                    <button class="btn-add-message" onclick="addMessage()">
+                        ➕ Tambah Pesan
+                    </button>
+                    
+                    <div id="formFeedback" class="form-feedback"></div>
+                </div>
+                
+                <div class="added-messages-section">
+                    <h3>📝 Pesan yang Sudah Ditambahkan:</h3>
+                    <div id="addedMessagesList" class="added-messages-list">
+                        <p class="no-messages">Belum ada pesan. Yuk tambahkan pesan pertama!</p>
+                    </div>
+                </div>
+                
+                <div class="form-continue-section" style="text-align: center; margin-top: var(--space-32);">
+                    <button class="btn-continue" id="finishFormBtn" onclick="completeForm()" style="display: none;">
+                        Selesai &amp; Lihat Semua Pesan 💌
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Messages Page -->
+        <div id="messages" class="page">
+            <div class="messages-container">
+                <div class="messages-header">
+                    <h2>💌 Pesan Ulang Tahun Terbaik 💌</h2>
+                    <p>Ucapan tulus dari orang-orang yang menyayangimu</p>
+                </div>
+                
+                <div class="messages-grid" id="messagesGrid">
+                    <!-- Message cards will be generated by JavaScript -->
+                </div>
+                
+                <div class="final-celebration">
+                    <h3>🎂✨ Petualangan Selesai! Selamat Ulang Tahun! ✨🎂</h3>
+                    <p>Terima kasih telah menjalani perjalanan spesial ini!</p>
+                    <div>
+                        <button class="btn-continue" onclick="goBackToForm()">
+                            ✏️ Tambah Pesan Lagi
+                        </button>
+                        <button class="btn-continue" onclick="restartJourney()">
+                            🔄 Mulai Dari Awal
+                        </button>
+                        <button class="btn-secondary" onclick="resetProgress()">
+                            🗑️ Reset Progress
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+ 
+</body>
+</html>
